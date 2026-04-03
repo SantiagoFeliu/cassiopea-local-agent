@@ -10,3 +10,11 @@ __pycache__/
 venv/
 .venv/
 __pycache__/
+
+.env
+.env.*
+*.log
+*.json
+.venv/
+venv/
+__pycache__/
