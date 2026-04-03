@@ -16,7 +16,7 @@ Expone una API FastAPI en localhost con dos endpoints:
 pip install -r requirements.txt
 
 ## Ejecutar
-python -m uvicorn llm_api:app --host 0.0.0.0 --port 8002
+python -m uvicorn llm_api:app --host 127.0.0.1 --port 8002
 
 ## Test rápido
 ./tests/test_api.sh
