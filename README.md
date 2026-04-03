@@ -1,14 +1,25 @@
 # Cassiopea Local Agent
 
-Agente de código local basado en Ollama + Qwen2.5-Coder.
-Ejecuta generación y ejecución de código en localhost.
-Sin cloud. Sin API keys.
+API local funcional sobre Ollama + Qwen2.5-Coder.
+
+## Qué hace
+Expone una API FastAPI en localhost con dos endpoints:
+- /health
+- /generate
 
 ## Requisitos
-- Ollama instalado
+- Ollama corriendo en localhost
+- Modelo qwen2.5-coder:7b descargado
 - Python 3.10+
 
 ## Instalación
+pip install -r requirements.txt
 
-ollama pull qwen2.5-coder:7b
-pip install open-interpreter
+## Ejecutar
+python -m uvicorn llm_api:app --host 0.0.0.0 --port 8002
+
+## Test rápido
+./tests/test_api.sh
+
+## Healthcheck
+curl http://localhost:8002/health
