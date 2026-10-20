@@ -1,4 +1,4 @@
-# Cassiopea Local Agent — Engineering Notes
+# PC Local Agent — Engineering Notes
 
 Local Python FastAPI integration with Ollama and Qwen2.5-Coder. This is a small proof of concept, not a production-ready service.
 
