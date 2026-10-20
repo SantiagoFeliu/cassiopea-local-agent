@@ -1,8 +1,8 @@
-# Cassiopea Local Agent
+# PC Local Agent
 
 **Local LLM integration proof of concept — Python, FastAPI, Ollama and Qwen2.5-Coder.**
 
-Cassiopea demonstrates a small, inspectable HTTP interface to a locally running language model. The focus is straightforward API integration, explicit upstream timeouts and a localhost-first deployment boundary.
+PC demonstrates a small, inspectable HTTP interface to a locally running language model. The focus is straightforward API integration, explicit upstream timeouts and a localhost-first deployment boundary.
 
 > **Status:** Functional proof of concept (POC). Not production-ready.
 
