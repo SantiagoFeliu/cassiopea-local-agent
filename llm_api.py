@@ -6,7 +6,7 @@ OLLAMA_URL = "http://localhost:11434/api/generate"
 OLLAMA_TAGS_URL = "http://localhost:11434/api/tags"
 MODEL = "qwen2.5-coder:7b"
 
-app = FastAPI(title="Cassiopea Local Agent")
+app = FastAPI(title="PC Local Agent")
 
 class PromptRequest(BaseModel):
     prompt: str
