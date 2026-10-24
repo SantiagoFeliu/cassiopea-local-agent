@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import requests
+from collections.abc import Mapping
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
 OLLAMA_TAGS_URL = "http://localhost:11434/api/tags"
@@ -33,7 +34,12 @@ def generate(req: PromptRequest):
             timeout=120
         )
         r.raise_for_status()
-        data = r.json()
+        try:
+            data = r.json()
+        except ValueError:
+            raise HTTPException(status_code=502, detail="Respuesta inválida del servicio de generación")
+        if not isinstance(data, Mapping) or not isinstance(data.get("response", ""), str):
+            raise HTTPException(status_code=502, detail="Respuesta inválida del servicio de generación")
         return {
             "ok": True,
             "model": MODEL,
@@ -41,5 +47,3 @@ def generate(req: PromptRequest):
         }
     except requests.RequestException:
         raise HTTPException(status_code=503, detail="Servicio de generación no disponible")
-    except ValueError:
-        raise HTTPException(status_code=502, detail="Respuesta inválida del servicio de generación")
