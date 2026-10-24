@@ -17,8 +17,8 @@ def health():
         r = requests.get(OLLAMA_TAGS_URL, timeout=5)
         r.raise_for_status()
         return {"status": "ok", "ollama": "reachable", "model": MODEL}
-    except Exception as e:
-        raise HTTPException(status_code=503, detail=f"Ollama no disponible: {e}")
+    except requests.RequestException:
+        raise HTTPException(status_code=503, detail="Ollama no disponible")
 
 @app.post("/generate")
 def generate(req: PromptRequest):
@@ -39,5 +39,7 @@ def generate(req: PromptRequest):
             "model": MODEL,
             "response": data.get("response", "").strip()
         }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error generando respuesta: {e}")
+    except requests.RequestException:
+        raise HTTPException(status_code=503, detail="Servicio de generación no disponible")
+    except ValueError:
+        raise HTTPException(status_code=502, detail="Respuesta inválida del servicio de generación")
