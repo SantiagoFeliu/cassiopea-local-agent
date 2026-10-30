@@ -86,3 +86,18 @@ This script is a manual API request, not an automated test suite.
 Read [Engineering Notes](docs/ENGINEERING_NOTES.md) for source-grounded behavior, architecture and limitations.
 
 Potential future work includes mocked upstream tests, sanitized error responses, request limits and CI. These are **not** claimed as implemented features.
+
+## Verification checklist
+
+Run the service locally and record the HTTP status and response body for each check:
+
+1. With Ollama running, request `GET /health`; this establishes upstream reachability only.
+2. Send a valid JSON prompt to `POST /generate` and confirm the response contains `ok`, `model`, and `response`.
+3. Stop Ollama and repeat the health check; confirm the API reports failure rather than silently succeeding.
+4. Restart Ollama and repeat generation; confirm recovery.
+
+The repository includes a manual smoke test (`bash tests/test_api.sh`), **not** an automated CI test suite. These steps are a reproducible acceptance checklist, not a claim that they were executed in this review.
+
+## Security and deployment decision
+
+**Local-only POC.** Bind Uvicorn to `127.0.0.1`. Do not publish port 8002 or put the API behind a public reverse proxy without authentication, request limits, sanitized errors, and dependency review. No performance, uptime, or production-security guarantee is asserted.
